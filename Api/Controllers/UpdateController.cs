@@ -1,4 +1,6 @@
 
+using Api.Models.ResultClass;
+using Api.Services.Updates;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -7,15 +9,17 @@ namespace Api.Controllers;
 [Route("[controller]")]
 public class UpdateController : ControllerBase
 {
+    private readonly IUpdateService _updateService;
 
-    public UpdateController()
+    public UpdateController(IUpdateService updateService)
     {
+        _updateService = updateService;
     }
 
     [HttpGet]
-    public async Task<ActionResult<Update>> FetchAllUpdates()
+    public async Task<ActionResult<ResultClass<Update>>> FetchAllUpdates()
     {
-        var result = new Update(){WebContent = "new contetn"};
+        var result = _updateService.FetchAllUpdates();
 
         return Ok(result);
     }
