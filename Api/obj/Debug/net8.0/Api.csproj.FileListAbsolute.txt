@@ -33,3 +33,4 @@ D:\Farzin Maleknia\11-My Projects\VsCode\UpdateChecker\Api\obj\Debug\net8.0\refi
 D:\Farzin Maleknia\11-My Projects\VsCode\UpdateChecker\Api\obj\Debug\net8.0\Api.pdb
 D:\Farzin Maleknia\11-My Projects\VsCode\UpdateChecker\Api\obj\Debug\net8.0\Api.genruntimeconfig.cache
 D:\Farzin Maleknia\11-My Projects\VsCode\UpdateChecker\Api\obj\Debug\net8.0\ref\Api.dll
+D:\Farzin Maleknia\11-My Projects\VsCode\UpdateChecker\Api\obj\Debug\net8.0\Api.sourcelink.json
