@@ -19,7 +19,7 @@ public class UpdateController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<ResultClass<Update>>> FetchAllUpdates()
     {
-        var result = _updateService.FetchAllUpdates();
+        var result = await _updateService.FetchAllUpdates();
 
         return Ok(result);
     }
