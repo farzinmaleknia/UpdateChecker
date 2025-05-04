@@ -10,7 +10,7 @@ public class UpdateService : IUpdateService
 
     public async Task<ResultClass<Update>> FetchAllUpdates()
     {
-        var result = new ResultClass<Update>();
+        var result = new ResultClass<Update>(){Data = new Update()};
 
         if(_browserFetcher == null)
         {
@@ -33,10 +33,8 @@ public class UpdateService : IUpdateService
 
         if (jsHandle != null)
         {
-            await Task.WhenAll(
-                page.WaitForNavigationAsync(new NavigationOptions { WaitUntil = new[] { WaitUntilNavigation.Load } }),
-                jsHandle.ClickAsync()
-            );
+            await jsHandle.ClickAsync();
+            await page.WaitForNavigationAsync(new NavigationOptions { WaitUntil = new[] { WaitUntilNavigation.Load } });
 
             var secondElementHandle = await page.EvaluateFunctionHandleAsync(@"() => {
                 return [...document.querySelectorAll('a')]
@@ -47,10 +45,8 @@ public class UpdateService : IUpdateService
 
             if (secondjsHandle != null)
             {
-                await Task.WhenAll(
-                    page.WaitForNavigationAsync(new NavigationOptions { WaitUntil = new[] { WaitUntilNavigation.Load } }),
-                    jsHandle.ClickAsync()
-                );
+                await secondjsHandle.ClickAsync();
+                await page.WaitForNavigationAsync(new NavigationOptions { WaitUntil = new[] { WaitUntilNavigation.Load } });
 
                 var thirdElementHandle = await page.EvaluateFunctionHandleAsync(@"() => {
                     return [...document.querySelectorAll('button')]
@@ -62,13 +58,11 @@ public class UpdateService : IUpdateService
 
                 if (thirdjsHandle != null)
                 {
-                    await Task.WhenAll(
-                        page.WaitForFunctionAsync(@"() => {
-                            const buttons = Array.from(document.querySelectorAll('button'));
-                            return buttons.some(btn => btn.innerText.includes('Visitor visa')); 
-                        }"),
-                        thirdjsHandle.ClickAsync()
-                    );
+                    await thirdjsHandle.ClickAsync();
+                    await page.WaitForFunctionAsync(@"() => {
+                        const buttons = Array.from(document.querySelectorAll('button'));
+                        return buttons.some(btn => btn.innerText.includes('Visitor visa')); 
+                    }");
 
                     var fourthElementHandle = await page.EvaluateFunctionHandleAsync(@"() => {
                         return [...document.querySelectorAll('button')]
@@ -80,108 +74,88 @@ public class UpdateService : IUpdateService
 
                     if (fourthjsHandle != null)
                     {
-                        await Task.WhenAll(
-                            page.WaitForFunctionAsync(@"() => {
-                                const links = Array.from(document.querySelectorAll('a'));
-                                return links.some(a => a.innerText.includes('IRCC secure account (GCKey or Sign-In Partner)')); 
-                            }"),
-                            fourthjsHandle.ClickAsync()
-                        );
+                        await fourthjsHandle.ClickAsync();
+                        await page.WaitForFunctionAsync(@"() => {
+                            const links = Array.from(document.querySelectorAll('a'));
+                            return links.some(a => a.innerText.includes('IRCC secure account (GCKey or Sign-In Partner)')); 
+                        }");
 
                         var fifthElementHandle = await page.EvaluateFunctionHandleAsync(@"() => {
-                            return [...document.querySelectorAll('button')]
+                            return [...document.querySelectorAll('a')]
                                 .find(el => el.textContent.includes('IRCC secure account (GCKey or Sign-In Partner)'));
-                            }");
+                        }");
 
 
                         var fifthjsHandle = fifthElementHandle as ElementHandle;
 
                         if (fifthjsHandle != null)
                         {
-                            await Task.WhenAll(
-                                browser.WaitForTargetAsync(
-                                    target => target.Type == TargetType.Page && target.Url != page.Url
-                                ).ContinueWith(async t => await t.Result.PageAsync()),
-                                fifthjsHandle.ClickAsync()
-                            );
+                            var href = await ( await fifthjsHandle.GetPropertyAsync("href")).JsonValueAsync<string>();
+                            await page.GoToAsync(href);
+                            await browser.WaitForTargetAsync(
+                                target => target.Type == TargetType.Page && target.Url != page.Url
+                            ).ContinueWith(async t => await t.Result.PageAsync());
 
-                            var sixthElementHandle = await page.EvaluateFunctionHandleAsync(@"() => {
-                                return [...document.querySelectorAll('button')]
-                                    .find(el => el.textContent.includes('IRCC secure account (GCKey or Sign-In Partner)'));
-                                }");
-
-                            var sixthjsHandle = sixthElementHandle as ElementHandle;
+                            var sixthElementHandle = await page.XPathAsync("//a[span[span[text()='GCKey username and password']]]");
+                            
+                            var sixthjsHandle = sixthElementHandle[0] as ElementHandle;
 
                             if (sixthjsHandle != null)
                             {
-                                await Task.WhenAll(
-                                    browser.WaitForTargetAsync(
-                                        target => target.Type == TargetType.Page && target.Url != page.Url
-                                    ).ContinueWith(async t => await t.Result.PageAsync()),
-                                    sixthjsHandle.ClickAsync()
-                                );
+                                var sixthHref = await ( await sixthjsHandle.GetPropertyAsync("href")).JsonValueAsync<string>();
+                                await page.GoToAsync(sixthHref);
+                                await page.WaitForFunctionAsync(@"() => {
+                                    return document.querySelector('#token1');
+                                }");
 
-                                var seventhElementHandle = await page.XPathAsync("//a[span[text()='GCKey username and password']]");
+                                //await page.WaitForNavigationAsync(new NavigationOptions { WaitUntil = new[] { WaitUntilNavigation.Load } });
+
+                                var usernameInput = await page.EvaluateFunctionHandleAsync(@"() => {
+                                    return document.querySelector('#token1')
+                                }");
+
+                                var usernamePlaceHolder = await page.EvaluateFunctionAsync<string>("el => el.getAttribute('placeholder')", usernameInput);
+
+                                var passInput = await page.EvaluateFunctionHandleAsync(@"() => {
+                                    return document.querySelector('#token2')
+                                }");
                                 
+                                var passPlaceHolder = await page.EvaluateFunctionAsync<string>("el => el.getAttribute('placeholder')", passInput);
 
-                                var seventhjsHandle = seventhElementHandle as ElementHandle[];
-
-                                if (seventhjsHandle != null)
-                                {
-                                    await Task.WhenAll(
-                                        browser.WaitForTargetAsync(
-                                            target => target.Type == TargetType.Page && target.Url != page.Url
-                                        ).ContinueWith(async t => await t.Result.PageAsync()),
-                                        seventhjsHandle[0].ClickAsync()
-                                    );
-
-                                    // var seventhElementHandle = await page.XPathAsync("//a[span[text()='GCKey username and password']]");
-                                    
-
-                                }
-                                else
-                                {
-                                    result.Message = "Sixth Element not found or not clickable.";
-                                    return result;
-                                }  
-
-
+                                result.Data = new Update() {WebContent = usernamePlaceHolder};
+                                result.IsSuccess = true;
+                                return result;
 
                             }
                             else
                             {
-                                result.Message = "Sixth Element not found or not clickable.";
+                                result.Message = "sixth Element not found or not clickable.";
                                 return result;
                             }  
-
                         }
                         else
                         {
                             result.Message = "fifth Element not found or not clickable.";
                             return result;
                         }   
-
                     }
                     else
                     {
                         result.Message = "fourth Element not found or not clickable.";
                         return result;
                     }   
-
                 }
                 else
                 {
                     result.Message = "third Element not found or not clickable.";
                     return result;
                 }
-
             }
             else
             {
                 result.Message = "Second Element not found or not clickable.";
                 return result;
             }
-
         }
         else
         {
