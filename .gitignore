@@ -486,7 +486,5 @@ $RECYCLE.BIN/
 # My Ignorances
 
 *.dll
-obj/
-bin/
-Api/obj/
-Api/bin/
+obj
+bin
