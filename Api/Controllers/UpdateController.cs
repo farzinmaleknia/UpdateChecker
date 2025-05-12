@@ -1,6 +1,5 @@
 
-using Api.Models.ResultClass;
-using Api.Services.Updates;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -16,10 +15,10 @@ public class UpdateController : ControllerBase
         _updateService = updateService;
     }
 
-    [HttpGet]
-    public async Task<ActionResult<ResultClass<Update>>> FetchAllUpdates()
+    [HttpPost]
+    public async Task<ActionResult<ResultClass<Update>>> LoginForUpdate(LoginForUpdateDTO request)
     {
-        var result = await _updateService.FetchAllUpdates();
+        var result = await _updateService.LoginForUpdate(request);
 
         return Ok(result);
     }

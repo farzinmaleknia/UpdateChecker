@@ -1,15 +1,26 @@
 global using Api.Models;
-using Api.Services.Updates;
+global using Api.Services.Updates;
+global using Api.Models.ResultClass;
+global using Api.DTOs.Updates;
+
+using Api.Services.Browser;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUpdateService, UpdateService>();
+builder.Services.AddSingleton<BrowserService>();
+
 
 var app = builder.Build();
 

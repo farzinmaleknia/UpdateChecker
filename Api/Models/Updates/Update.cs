@@ -1,7 +1,10 @@
+using Api.Services.Enums;
+
 namespace Api.Models;
 
 public class Update
 {
-    public string WebContent { get; set; }
+    public UpdateSteps UpdateStep { get; set; }
+    public string SessionId { get; set; }
 
 }
