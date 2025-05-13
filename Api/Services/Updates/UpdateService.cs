@@ -69,13 +69,13 @@ public class UpdateService : IUpdateService
                 }
                 else
                 {
-                    result.MessageKey = nameof(Resources.Messages.PleaseTryAgainOrCall);
+                    result.MessageKey = nameof(Messages.PleaseTryAgainOrCall);
                     return result;
                 }  
                 }
             else
             {
-                result.MessageKey = nameof(Resources.Messages.PleaseTryAgainOrCall);
+                result.MessageKey = nameof(Messages.PleaseTryAgainOrCall);
                 return result;
             } 
         }

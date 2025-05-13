@@ -489,3 +489,28 @@ $RECYCLE.BIN/
 obj
 bin
 .resxpress/*
+
+# React ignorance
+
+# Node modules
+**/node_modules/
+
+# Build output
+**/dist/
+**/build/
+
+# Logs
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+
+# IDE/editor settings
+.vscode/
+.DS_Store
+
+# dotenv files
+**/.env*
+
+Client/node_modules/
+Client/build/
+Client/dist/
