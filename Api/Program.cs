@@ -7,6 +7,8 @@ using Api.Services.Browser;
 using System.Text.Json.Serialization;
 using Api.Services.Resources;
 
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -24,6 +26,18 @@ builder.Services.AddScoped<IUpdateService, UpdateService>();
 builder.Services.AddSingleton<BrowserService>();
 builder.Services.AddSingleton<ResourcesService>();
 
+builder.Services.AddCors(options =>
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        }
+    )
+);
+
 
 var app = builder.Build();
 
@@ -33,6 +47,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
 

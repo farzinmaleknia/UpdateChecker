@@ -15,10 +15,12 @@ public class ResourcesController : ControllerBase
         _ResourcesService = resourcesService;
     }
 
-    [HttpPost]
+    [HttpGet]
     public async Task<ActionResult<ResultClass<string>>> GetResources()
     {
         var result = await _ResourcesService.GetResources();
+
+        
 
         return Ok(result);
     }
