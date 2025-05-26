@@ -1,17 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { BaseQueryFn } from '@reduxjs/toolkit/query';
-
-type Resources = { id: string; name: {id: string, name: string} };
-
+import type { ResultClass } from '../interfaces/ResultClass/ResultClass';
+import type { Resources } from '../interfaces/Resources/Resources';
 
 const resourcesApi = createApi({
-    reducerPath: 'recources',
+    reducerPath: 'fetchRecources',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:5025',
+        baseUrl: "http://localhost:5025",
     }) as BaseQueryFn,
     endpoints(builder){
       return {
-        fetchResources: builder.query<Resources, void>({
+        fetchResources: builder.query<ResultClass<Resources>, void>({
             query: () => {
                 return {
                     url: '/Resources',

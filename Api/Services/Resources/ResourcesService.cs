@@ -25,6 +25,10 @@ public class ResourcesService
                 xmlDoc.Load(file);
 
                 string groupName = Path.GetFileNameWithoutExtension(file);
+                if (groupName == "Defaults")
+                {
+                    continue;
+                }
 
                 var entries = new Dictionary<string, string>();
 

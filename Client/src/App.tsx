@@ -1,13 +1,23 @@
-import { useFetchResourcesQuery } from "./store";
-
+import { useAppDispatch, useAppSelector } from './hooks';
+import { useEffect } from "react";
+import { setResources } from "./store";
+import { useResources } from "./hooks/useResources";
+import { localResources } from "./data/Defaults.json";
 
 function App() {
-  const {data, error, isLoading} = useFetchResourcesQuery();
+  const dispatch = useAppDispatch();
+  const { resources } = useAppSelector((state) => {
+    return state;
+  })
 
-  if (data != null)
-  {
-    console.log(data.data.Titles.Cancel)
-  }
+  useEffect(() => {
+    const ResourcesAction = setResources(localResources);
+    dispatch(ResourcesAction);
+  }, []);
+
+  useResources();
+
+  console.log(resources);
 
   return (
     <h1 className="text-3xl font-bold">

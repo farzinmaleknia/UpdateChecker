@@ -1,0 +1,9 @@
+{
+    "localResources" : {
+        "Defaults": {
+            "English": "en-US",
+            "Persian": "fa-IR",
+            "apiBaseUrl": "http://localhost:5025"
+        }
+    }
+}
