@@ -1,7 +1,8 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { BaseQueryFn } from '@reduxjs/toolkit/query';
 import type { ResultClass } from '../interfaces/ResultClass/ResultClass';
 import type { Resources } from '../interfaces/Resources/Resources';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { dynamicBaseQuery } from './dynamicBaseQuery';
 
 const resourcesApi = createApi({
     reducerPath: 'fetchRecources',

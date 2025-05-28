@@ -3,27 +3,24 @@ import { useEffect } from "react";
 import { setResources } from "./store";
 import { useResources } from "./hooks/useResources";
 import { localResources } from "./data/Defaults.json";
+import Main from "./pages/Main";
 
 function App() {
+  const isResourcesLoaded = useResources();
   const dispatch = useAppDispatch();
-  const { resources } = useAppSelector((state) => {
-    return state;
-  })
+  const resources  = useAppSelector((state) => state);
 
   useEffect(() => {
     const ResourcesAction = setResources(localResources);
     dispatch(ResourcesAction);
   }, []);
-
-  useResources();
-
-  console.log(resources);
-
+  
   return (
-    <h1 className="text-3xl font-bold">
-      Hello world!
-    </h1>
+
+    <div className="">
+      {isResourcesLoaded? <Main/>: null}
+    </div>
   );
 }
 
-export default App
+export default App;

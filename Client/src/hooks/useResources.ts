@@ -4,7 +4,7 @@ import { setResources } from "../store/slices/resources";
 import { useAppDispatch } from '../hooks';
 
 
-export const useResources =  (): void => {
+export const useResources =  (): boolean => {
     const { data , error, isSuccess  } = useFetchResourcesQuery();
     const dispatch = useAppDispatch();
 
@@ -29,4 +29,6 @@ export const useResources =  (): void => {
         } 
 
     }, [data, error, isSuccess])
+
+    return isSuccess;
 }
