@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useFetchResourcesQuery } from "../store";
 import { setResources } from "../store/slices/resources";
 import { useAppDispatch } from '../hooks';
 
 
 export const useResources =  (): boolean => {
+    const [isAdded, setIsAdded] = useState<boolean>(false);
     const { data , error, isSuccess  } = useFetchResourcesQuery();
     const dispatch = useAppDispatch();
 
@@ -15,8 +16,7 @@ export const useResources =  (): boolean => {
             if(data.isSuccess){
                 const ResourcesAction = setResources(data.data);
                 dispatch(ResourcesAction);
-
-
+                setIsAdded(true);
             } else {
                 console.error(data.messageKey);
             }
@@ -30,5 +30,11 @@ export const useResources =  (): boolean => {
 
     }, [data, error, isSuccess])
 
-    return isSuccess;
+    if(isSuccess && isAdded)
+    {
+        return true;
+    } else {
+        return false;
+    }
+    
 }

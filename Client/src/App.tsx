@@ -6,19 +6,19 @@ import { localResources } from "./data/Defaults.json";
 import Main from "./pages/Main";
 
 function App() {
-  const isResourcesLoaded = useResources();
   const dispatch = useAppDispatch();
-  const resources  = useAppSelector((state) => state);
-
+  const resources  = useAppSelector((state) => state.resources);
+  //console.log(resources);
+  
   useEffect(() => {
     const ResourcesAction = setResources(localResources);
     dispatch(ResourcesAction);
   }, []);
   
+  const isResourcesLoaded = useResources();
   return (
-
     <div className="">
-      {isResourcesLoaded? <Main/>: null}
+      {isResourcesLoaded? <Main/> : null}
     </div>
   );
 }

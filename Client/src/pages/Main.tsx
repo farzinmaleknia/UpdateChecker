@@ -1,10 +1,8 @@
-import Login from "./Login";
+import UpdateLogin from "./UpdateLogin";
 
 const Main = () => {
-
-
     return (<div>
-        <Login />
+        <UpdateLogin />
     </div>)
 }
 

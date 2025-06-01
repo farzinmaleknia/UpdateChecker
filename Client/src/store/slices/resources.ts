@@ -14,8 +14,8 @@ export const resourcesSlice = createSlice({
     name: "resources",
     initialState,
     reducers: {
-        setResources: (state, action: PayloadAction<Resources>) => {
-            state.resources = {...state.resources, ...action.payload};
+        setResources: (state, action: PayloadAction<Resources>) =>{
+            state.resources = action.payload;
         }
     }
 })

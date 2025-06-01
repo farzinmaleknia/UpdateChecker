@@ -1,6 +1,6 @@
 export interface LoginForUpdateDTO{
-    IsUsingSavedAuth: boolean,
-    SavedUsernameAndPasswordId: string,
+    IsUsingSavedAuth?: boolean,
+    SavedUsernameAndPasswordId?: string,
     Username: string,
     Password: string,
 } 
