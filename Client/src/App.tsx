@@ -7,13 +7,13 @@ import Main from "./pages/Main";
 
 function App() {
   const dispatch = useAppDispatch();
-  const resources  = useAppSelector((state) => state.resources);
-  //console.log(resources);
+  //const resources  = useAppSelector((state) => state.resources);
   
   useEffect(() => {
     const ResourcesAction = setResources(localResources);
     dispatch(ResourcesAction);
   }, []);
+  //console.log(resources);
   
   const isResourcesLoaded = useResources();
   return (

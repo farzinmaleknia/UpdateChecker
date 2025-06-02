@@ -7,7 +7,7 @@ const UpdateLogin = () => {
         Username: "",
         Password: ""
     });
-    const { resources } = useAppSelector(state => state.resources);
+    const resources = useAppSelector(state => state.resources);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value } = e.target;

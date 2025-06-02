@@ -9,9 +9,7 @@ export const dynamicBaseQuery: BaseQueryFn<string | FetchArgs, unknown, FetchBas
   extraOptions
 ) => {
   const state = api.getState() as any;
-  const baseUrl = state.resources?.resources?.Defaults?.apiBaseUrl; 
-
-  console.log(state.resources)
+  const baseUrl = state.resources?.Defaults?.apiBaseUrl; 
   const rawBaseQuery = fetchBaseQuery({ baseUrl });
 
   return rawBaseQuery(args, api, extraOptions);

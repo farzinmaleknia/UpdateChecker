@@ -2,20 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit" 
 import type { Resources } from "../interfaces/Resources/Resources";
 
-interface ResourcesState {
-    resources : Resources | null;
-}
-
-const initialState : ResourcesState = {
-    resources: null,
-};
+const initialState : Resources = {};
 
 export const resourcesSlice = createSlice({
     name: "resources",
     initialState,
     reducers: {
         setResources: (state, action: PayloadAction<Resources>) =>{
-            state.resources = action.payload;
+            return {...state , ...action.payload};
         }
     }
 })
