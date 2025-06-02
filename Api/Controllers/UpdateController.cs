@@ -8,18 +8,18 @@ namespace Api.Controllers;
 [Route("[controller]")]
 public class UpdateController : ControllerBase
 {
-    private readonly IUpdateService _updateService;
+  private readonly IUpdateService _updateService;
 
-    public UpdateController(IUpdateService updateService)
-    {
-        _updateService = updateService;
-    }
+  public UpdateController(IUpdateService updateService)
+  {
+      _updateService = updateService;
+  }
 
-    [HttpPost]
-    public async Task<ActionResult<ResultClass<Update>>> LoginForUpdate(LoginForUpdateDTO request)
-    {
-        var result = await _updateService.LoginForUpdate(request);
+  [HttpPost("LoginForUpdate")]
+  public async Task<ActionResult<ResultClass<Update>>> LoginForUpdate([FromBody] LoginForUpdateDTO request)
+  {
+    var result = await _updateService.LoginForUpdate(request);
 
-        return Ok(result);
-    }
+    return Ok(result);
+  }
 }

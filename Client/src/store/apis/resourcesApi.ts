@@ -1,8 +1,7 @@
-import type { BaseQueryFn } from '@reduxjs/toolkit/query';
-import type { FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import type { BaseQueryFn, FetchArgs, FetchBaseQueryError  } from '@reduxjs/toolkit/query';
 import type { ResultClass } from '../interfaces/ResultClass/ResultClass';
 import type { Resources } from '../interfaces/Resources/Resources';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { dynamicBaseQuery } from './dynamicBaseQuery';
 
 const resourcesApi = createApi({
@@ -13,8 +12,8 @@ const resourcesApi = createApi({
         fetchResources: builder.query<ResultClass<Resources>, void>({
             query: () => {
                 return {
-                    url: '/Resources',
-                    method: 'GET',
+                  url: '/Resources',
+                  method: 'GET',
                 };
             }
         })

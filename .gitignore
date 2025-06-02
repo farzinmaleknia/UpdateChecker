@@ -514,3 +514,5 @@ bin
 Client/node_modules/
 Client/build/
 Client/dist/
+
+.prettierrc

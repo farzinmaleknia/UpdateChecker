@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { setResources } from "./store";
 import { useResources } from "./hooks/useResources";
 import { localResources } from "./data/Defaults.json";
-import Main from "./pages/Main";
+import Update from "./pages/Update";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -18,7 +18,7 @@ function App() {
   const isResourcesLoaded = useResources();
   return (
     <div className="">
-      {isResourcesLoaded? <Main/> : null}
+      {isResourcesLoaded? <Update/> : null}
     </div>
   );
 }

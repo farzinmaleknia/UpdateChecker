@@ -171,4 +171,9 @@ public class Titles
 	/// Looks up a localized string similar to فراخوانی.
 	/// </summary>
 	public static string Call => ResourceManager.GetString("Call", Culture);
+	
+	/// <summary>
+	/// Looks up a localized string similar to ثبت.
+	/// </summary>
+	public static string Submit => ResourceManager.GetString("Submit", Culture);
 }

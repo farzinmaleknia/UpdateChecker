@@ -1,55 +1,63 @@
+import type { LoginForUpdateDTO } from "../store/interfaces/Update/LoginForUpdateDTO";
 import { useState } from "react";
 import { useAppSelector } from "../hooks";
-import type { LoginForUpdateDTO } from "../store/interfaces/Update/LoginForUpdateDTO";
+import { TextInput } from "../components/TextInput";
+import { Button } from "../components/Button";
 
-const UpdateLogin = () => {
-    const [loginModel, setLoginModel] = useState<LoginForUpdateDTO>({
-        Username: "",
-        Password: ""
-    });
-    const resources = useAppSelector(state => state.resources);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value } = e.target;
-
-        console.log(e.target)
-        console.log(name, value )
-
-        setLoginModel(prev => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        
-
-    }
-    
-
-    return (<div>
-        <form onSubmit={handleSubmit}>
-            <label className="font-bold mx-2" htmlFor="username">{resources?.Titles.Username} :</label>
-            <input
-                name="Username" 
-                id="username" 
-                className=" block border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:outline-none m-2 px-4 py-2 w-100" 
-                value={loginModel.Username}  
-                onChange={handleChange}
-                placeholder="Username"
-            />
-            <label className="font-bold mx-2" htmlFor="password">{resources?.Titles.Password} :</label>
-            <input
-                name="Password" 
-                id="password" 
-                className="block border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:outline-none m-2 px-4 py-2 w-100" 
-                value={loginModel.Password}
-                onChange={handleChange}
-                placeholder="Password"
-            />
-        </form>
-    </div>);
+interface UpdateLoginProps {
+  onHandleSubmit : (model: LoginForUpdateDTO) => void,
 }
+
+const UpdateLogin = ({onHandleSubmit}: UpdateLoginProps ) => {
+  const [loginModel, setLoginModel] = useState<LoginForUpdateDTO>({
+    Username: "",
+    Password: "",
+  });
+  const resources = useAppSelector((state) => state.resources);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setLoginModel((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    onHandleSubmit(loginModel);
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit} className="w-120 flex flex-col">
+        <div className="flex flex-col self-center">
+          <label className="font-bold mx-2" htmlFor="username">
+            {resources?.Titles.Username} :
+          </label>
+          <TextInput
+            name="Username"
+            id="username"
+            value={loginModel.Username}
+            onChange={handleChange}
+          ></TextInput>
+          <label className="font-bold mx-2" htmlFor="password">
+            {resources?.Titles.Password} :
+          </label>
+          <TextInput
+            name="Password"
+            id="password"
+            value={loginModel.Password}
+            onChange={handleChange}
+          ></TextInput>
+        </div>
+        <div className="flex justify-end">
+          <Button type="submit">{resources?.Titles.Submit}</Button>
+        </div>
+      </form>
+    </div>
+  );
+};
 
 export default UpdateLogin;

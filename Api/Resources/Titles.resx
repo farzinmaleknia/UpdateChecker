@@ -198,4 +198,7 @@
     <data name="Call" xml:space="preserve">
         <value>فراخوانی</value>
     </data>
+    <data name="Submit" xml:space="preserve">
+        <value>ثبت</value>
+    </data>
 </root>
