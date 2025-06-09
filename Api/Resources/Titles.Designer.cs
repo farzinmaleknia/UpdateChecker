@@ -176,4 +176,24 @@ public class Titles
 	/// Looks up a localized string similar to ثبت.
 	/// </summary>
 	public static string Submit => ResourceManager.GetString("Submit", Culture);
+	
+	/// <summary>
+	/// Looks up a localized string similar to موفق.
+	/// </summary>
+	public static string Success => ResourceManager.GetString("Success", Culture);
+	
+	/// <summary>
+	/// Looks up a localized string similar to اطلاع.
+	/// </summary>
+	public static string Info => ResourceManager.GetString("Info", Culture);
+	
+	/// <summary>
+	/// Looks up a localized string similar to هشدار.
+	/// </summary>
+	public static string Warning => ResourceManager.GetString("Warning", Culture);
+	
+	/// <summary>
+	/// Looks up a localized string similar to خطا.
+	/// </summary>
+	public static string Error => ResourceManager.GetString("Error", Culture);
 }

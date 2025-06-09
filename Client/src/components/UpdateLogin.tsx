@@ -1,8 +1,8 @@
 import type { LoginForUpdateDTO } from "../store/interfaces/Update/LoginForUpdateDTO";
 import { useState } from "react";
 import { useAppSelector } from "../hooks";
-import { TextInput } from "../components/TextInput";
-import { Button } from "../components/Button";
+import { TextInput } from "./TextInput";
+import { Button } from "./Button";
 
 interface UpdateLoginProps {
   onHandleSubmit : (model: LoginForUpdateDTO) => void,

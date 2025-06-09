@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import resourcesReducer from "./slices/resources";
-import { setResources } from "./slices/resources";
 import { resourcesApi } from "./apis/resourcesApi";
 import { updateApi } from "./apis/updateApi";
 

@@ -129,37 +129,37 @@ public class UpdateServiceSimple
                             }
                             else
                             {
-                                result.MessageKey = "sixth Element not found or not clickable.";
+                                result.MessageKey.Add("sixth Element not found or not clickable.");
                                 return result;
                             }  
                         }
                         else
                         {
-                            result.MessageKey = "fifth Element not found or not clickable.";
+                            result.MessageKey.Add("fifth Element not found or not clickable.");
                             return result;
                         }   
                     }
                     else
                     {
-                        result.MessageKey = "fourth Element not found or not clickable.";
+                        result.MessageKey.Add("fourth Element not found or not clickable.");
                         return result;
                     }   
                 }
                 else
                 {
-                    result.MessageKey = "third Element not found or not clickable.";
+                    result.MessageKey.Add("third Element not found or not clickable.");
                     return result;
                 }
             }
             else
             {
-                result.MessageKey = "Second Element not found or not clickable.";
+                result.MessageKey.Add("Second Element not found or not clickable.");
                 return result;
             }
         }
         else
         {
-            result.MessageKey = "First Element not found or not clickable.";
+            result.MessageKey.Add("First Element not found or not clickable.");
             return result;
         }
 

@@ -58,10 +58,10 @@ public class ResourcesService
             return result;
 
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            result.MessageKey = e.Message;
-            return result;
+          result.MessageKey.Add(ex.Message);
+          return result;
         }   
     }
 }
