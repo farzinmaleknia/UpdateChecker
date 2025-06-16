@@ -55,8 +55,10 @@ public class UpdateService : IUpdateService
       }
 
       var FirstPageHref = await (await FirstPagejsHandle.GetPropertyAsync("href")).JsonValueAsync<string>();
-      await page.GoToAsync(FirstPageHref);
-      await page.WaitForSelectorAsync("#token1");
+      await page.GoToAsync(FirstPageHref, new NavigationOptions
+      {
+        WaitUntil = new[] { WaitUntilNavigation.Load }
+      });
 
       var usernameInput = await page.QuerySelectorAsync("#token1");
 
@@ -66,7 +68,19 @@ public class UpdateService : IUpdateService
 
       if (!(usernameInput != null && passInput != null && submitButton != null))
       {
-        throw new Exception(nameof(Messages.OpeningPageUnsuccessful));
+        var serverDown = await page.EvaluateFunctionAsync<string>(@"() => {
+          const el = [...document.querySelectorAll('strong')]
+            .find(el => el.innerText.includes('Our server is down'));
+          return el ? el.innerText : '';
+        }");
+
+        if (String.IsNullOrEmpty(serverDown))
+        {
+          throw new Exception(nameof(Messages.OpeningPageUnsuccessful));
+
+        }
+
+        throw new Exception(nameof(Messages.ServerDown));
       }
 
       await page.Mouse.MoveAsync(300, 500);

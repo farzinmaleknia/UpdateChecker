@@ -111,4 +111,9 @@ public class Messages
 	/// Looks up a localized string similar to خواهشا در زمانی دیگر تلاش کنید و یا با پشتیبانی تماس بگیرید.
 	/// </summary>
 	public static string PleaseTryAgainOrCall => ResourceManager.GetString("PleaseTryAgainOrCall", Culture);
+	
+	/// <summary>
+	/// Looks up a localized string similar to سرور مورد نظر غیرفعال می باشد، لطفا در زمان دیگری اقدام فرمایید..
+	/// </summary>
+	public static string ServerDown => ResourceManager.GetString("ServerDown", Culture);
 }

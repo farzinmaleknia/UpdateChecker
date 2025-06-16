@@ -162,4 +162,7 @@
     <data name="PleaseTryAgainOrCall" xml:space="preserve">
         <value>خواهشا در زمانی دیگر تلاش کنید و یا با پشتیبانی تماس بگیرید</value>
     </data>
+    <data name="ServerDown" xml:space="preserve">
+        <value>سرور مورد نظر غیرفعال می باشد، لطفا در زمان دیگری اقدام فرمایید.</value>
+    </data>
 </root>
