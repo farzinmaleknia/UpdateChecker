@@ -39,10 +39,10 @@ public class UpdateService : IUpdateService
       };
 
 
-      await page.GoToAsync("https://www.canada.ca/en/immigration-refugees-citizenship/services/application/account.html#alerts");
-      await browser.WaitForTargetAsync(
-        target => target.Type == TargetType.Page && target.Url != page.Url
-      ).ContinueWith(async t => await t.Result.PageAsync());
+      await page.GoToAsync("https://www.canada.ca/en/immigration-refugees-citizenship/services/application/account.html#alerts", new NavigationOptions
+      {
+        WaitUntil = new[] { WaitUntilNavigation.Load }
+      });
 
       var FirstPageElementHandle = await page.XPathAsync("//a[span[span[text()='GCKey username and password']]]");
 
@@ -51,7 +51,6 @@ public class UpdateService : IUpdateService
       if (FirstPagejsHandle == null)
       {
         throw new Exception(nameof(Messages.OpeningPageUnsuccessful));
-
       }
 
       var FirstPageHref = await (await FirstPagejsHandle.GetPropertyAsync("href")).JsonValueAsync<string>();
