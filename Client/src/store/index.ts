@@ -20,7 +20,7 @@ export const store = configureStore({
 setupListeners(store.dispatch);
 
 export { useFetchResourcesQuery } from "./apis/resourcesApi";
-export { useUpdateLoginMutation } from "./apis/updateApi";
+export { useUpdateLoginMutation, useUpdateVerificationMutation } from "./apis/updateApi";
 export { setResources } from "./slices/resources";
 
 export type RootState = ReturnType<typeof store.getState>;

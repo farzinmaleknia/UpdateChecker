@@ -213,4 +213,7 @@
     <data name="Error" xml:space="preserve">
         <value>خطا</value>
     </data>
+    <data name="VerificationCode" xml:space="preserve">
+        <value>کد تایید</value>
+    </data>
 </root>

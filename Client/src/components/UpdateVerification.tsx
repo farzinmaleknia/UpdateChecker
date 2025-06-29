@@ -6,13 +6,20 @@ import { Button } from "./Button";
 
 interface UpdateVerificationProps {
   onHandleSubmit : (model: VerificationForUpdateDTO) => void,
+  sessionId: string,
 }
 
-const UpdateVerification = ({onHandleSubmit}: UpdateVerificationProps ) => {
+const UpdateVerification = ({onHandleSubmit, sessionId}: UpdateVerificationProps ) => {
   const [VerificationModel, setVerificationModel] = useState<VerificationForUpdateDTO>({
     VerificationCode: "",
+    SessionId: ""
   });
   const resources = useAppSelector((state) => state.resources);
+
+  setVerificationModel((prev) => ({
+    ...prev,
+    SessionId: sessionId,
+  }));
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -33,7 +40,7 @@ const UpdateVerification = ({onHandleSubmit}: UpdateVerificationProps ) => {
       <form onSubmit={handleSubmit} className="w-120 flex flex-col">
         <div className="flex flex-col self-center">
           <label className="font-bold mx-2" htmlFor="username">
-            {resources?.Titles.Username} :
+            {resources?.Titles.VerificationCode} :
           </label>
           <TextInput
             name="verificationCode"

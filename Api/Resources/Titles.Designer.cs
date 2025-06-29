@@ -196,4 +196,9 @@ public class Titles
 	/// Looks up a localized string similar to خطا.
 	/// </summary>
 	public static string Error => ResourceManager.GetString("Error", Culture);
+	
+	/// <summary>
+	/// Looks up a localized string similar to کد تایید.
+	/// </summary>
+	public static string VerificationCode => ResourceManager.GetString("VerificationCode", Culture);
 }

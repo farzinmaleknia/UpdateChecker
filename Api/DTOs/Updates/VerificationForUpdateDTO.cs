@@ -5,4 +5,5 @@ namespace Api.DTOs.Updates;
 public class VerificationForUpdateDTO
 {
   public string VerificationCode { get; set; } = string.Empty;
+  public string SessionId { get; set; }
 }

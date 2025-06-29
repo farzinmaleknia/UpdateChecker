@@ -20,4 +20,12 @@ public class UpdateController : ControllerBase
 
     return Ok(result);
   }
+
+  [HttpPost("VerificationForUpdate")]
+  public async Task<ActionResult<ResultClass<Update>>> VerificationForUpdate([FromBody] VerificationForUpdateDTO request)
+  {
+    var result = await _updateService.VerificationForUpdate(request);
+
+    return Ok(result);
+  }
 }
