@@ -1,5 +1,5 @@
 import type { VerificationForUpdateDTO } from "../store/interfaces/Update/VerificationForUpdateDTO";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppSelector } from "../hooks";
 import { TextInput } from "./TextInput";
 import { Button } from "./Button";
@@ -15,11 +15,14 @@ const UpdateVerification = ({onHandleSubmit, sessionId}: UpdateVerificationProps
     SessionId: ""
   });
   const resources = useAppSelector((state) => state.resources);
+  
+  useEffect(()=>{
+    setVerificationModel((prev) => ({
+      ...prev,
+      SessionId: sessionId,
+    }));
 
-  setVerificationModel((prev) => ({
-    ...prev,
-    SessionId: sessionId,
-  }));
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -43,7 +46,7 @@ const UpdateVerification = ({onHandleSubmit, sessionId}: UpdateVerificationProps
             {resources?.Titles.VerificationCode} :
           </label>
           <TextInput
-            name="verificationCode"
+            name="VerificationCode"
             id="verificationCode"
             value={VerificationModel.VerificationCode}
             onChange={handleChange}

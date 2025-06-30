@@ -20,7 +20,6 @@ const Update = () => {
     updateLogin(auth);
   }
 
-  
   const onVerificationSubmitted = (code: VerificationForUpdateDTO) => {
     setActiveResultKey("verification");
     updateVerification(code);
@@ -29,10 +28,11 @@ const Update = () => {
   const activeResult = activeResultKey === "login" ? loginResults : activeResultKey === "verification" ? verificationResults : null;
 
   // useEffect(() => {
-  //   console.log(results.data?.messageKey);
-  // }, [results])
+  //   console.log(verificationResults);
+  // }, [verificationResults])
 
   const renderContent = (): JSX.Element => {
+    console.log(activeResult);
     switch (activeResult?.data?.data.updateStep) {
       case UpdateSteps.WaitingForVerificationCode:
         return(<UpdateVerification onHandleSubmit={onVerificationSubmitted} sessionId={activeResult.data?.data.sessionId} />);
