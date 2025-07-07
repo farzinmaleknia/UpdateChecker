@@ -171,14 +171,6 @@ public class UpdateService : IUpdateService
       var browser = session.Value.Item1;
       var page = session.Value.Item2;
 
-      int requestCount = 0;
-
-      page.Request += (sender, e) =>
-      {
-        requestCount++;
-        Console.WriteLine($"Request #{requestCount}: {e.Request.Url}");
-      };
-
       var codeInput = await page.QuerySelectorAsync("#code");
       var codeContinueButton = await page.QuerySelectorAsync("#continue-btn");
 
@@ -208,9 +200,16 @@ public class UpdateService : IUpdateService
         throw new Exception(nameof(Messages.OpeningPageUnsuccessful));
       }
 
+      var cookiesBefore = await page.GetCookiesAsync();
+      foreach (var cookie in cookiesBefore)
+      {
+        Console.WriteLine($"COOKIES {cookie.Name} = {cookie.Value}");
+      }
 
-      await codeContinueButton2.ClickAsync();
-      await page.WaitForNavigationAsync();
+      await Task.WhenAll(
+          page.WaitForNavigationAsync(new NavigationOptions { WaitUntil = new[] { WaitUntilNavigation.Networkidle0 } }),
+          codeContinueButton2.ClickAsync()
+      );
 
       var _continueButton = await page.QuerySelectorAsync("#_continue");
 
@@ -219,39 +218,13 @@ public class UpdateService : IUpdateService
         throw new Exception(nameof(Messages.OpeningPageUnsuccessful));
       }
 
+      await Task.WhenAll(
+        page.WaitForNavigationAsync(new NavigationOptions { WaitUntil = new[] { WaitUntilNavigation.Networkidle0 } }),
+        _continueButton.ClickAsync()
+      );
 
-      // var errorSpans = await page.EvaluateFunctionAsync<string[]>(@"() => {
-      //   return [...document.querySelectorAll('span.inputError')].map(el => el.innerText);
-      // }");
 
-      // if (errorSpans.Count() != 0)
-      // {
-      //   throw new Exception(nameof(Messages.WrongUsernamePassword));
-      // }
-
-      // var yourLastSignedInPhrase = await page.EvaluateFunctionAsync<string>(@"() => {
-      //   const el = [...document.querySelectorAll('p')]
-      //     .find(el => el.innerText.includes('You last signed in'));
-      //   return el ? el.innerText : '';
-      // }");
-
-      // var continueButton = await page.QuerySelectorAsync("#continue");
-
-      // if (!(yourLastSignedInPhrase != null && continueButton != null))
-      // {
-      //   throw new Exception(nameof(Messages.OpeningPageUnsuccessful));
-      // }
-
-      // await continueButton.ClickAsync();
-      // await page.WaitForNavigationAsync();
-
-      // var codeInput = await page.QuerySelectorAsync("#code");
-      // var codeContinueButton = await page.QuerySelectorAsync("#continue-btn");
-
-      // if (!(codeInput != null && codeContinueButton != null))
-      // {
-      //   throw new Exception(nameof(Messages.OpeningPageUnsuccessful));
-      // }
+      /////////////////////////////////////////////// Insert the Answer for Security Question Here 
 
       result.Data = new Update()
       {
