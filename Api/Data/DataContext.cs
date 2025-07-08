@@ -28,8 +28,19 @@ namespace Api.Data
         {
           Id = 4,
           Question = "My Favorite Car"
+        },
+        new SecurityQuestion
+        {
+          Id = 5,
+          Question = "My favorite person"
         }
       );
+
+      modelBuilder.Entity<SecurityQuestion>(entity =>
+      {
+        entity.Property(p => p.Question).HasMaxLength(50).IsUnicode(true);
+        entity.Property(p => p.Answer).HasMaxLength(50).IsUnicode(true);
+      });
     }
     public DbSet<SecurityQuestion> SecurityQuestions { get; set; }
   }

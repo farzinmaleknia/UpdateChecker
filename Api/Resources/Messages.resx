@@ -165,4 +165,7 @@
     <data name="ServerDown" xml:space="preserve">
         <value>سرور مورد نظر غیرفعال می باشد، لطفا در زمان دیگری اقدام فرمایید.</value>
     </data>
+    <data name="ThatQuestionOrAnswerEmpty" xml:space="preserve">
+        <value>سوال امنیتی {0} و یا جواب آن در جدول سوالات امنیتی وجود ندارد، خواهشا آن را اضافه و سپس اقدام نمایید.</value>
+    </data>
 </root>

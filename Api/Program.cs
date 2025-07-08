@@ -8,12 +8,13 @@ using System.Text.Json.Serialization;
 using Api.Services.Resources;
 using Microsoft.EntityFrameworkCore;
 using Api.Data;
+using Api.Services.SecurityQuestions;
 
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<DataContext>(options => 
+builder.Services.AddDbContext<DataContext>(options =>
   options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers()
@@ -26,6 +27,9 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUpdateService, UpdateService>();
+builder.Services.AddScoped<IUpdateLogin, UpdateLogin>();
+builder.Services.AddScoped<IUpdateVerification, UpdateVerification>();
+builder.Services.AddScoped<ISecurityQuestionService, SecurityQuestionService>();
 builder.Services.AddSingleton<BrowserService>();
 builder.Services.AddSingleton<ResourcesService>();
 

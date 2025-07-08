@@ -116,4 +116,9 @@ public class Messages
 	/// Looks up a localized string similar to سرور مورد نظر غیرفعال می باشد، لطفا در زمان دیگری اقدام فرمایید..
 	/// </summary>
 	public static string ServerDown => ResourceManager.GetString("ServerDown", Culture);
+	
+	/// <summary>
+	/// Looks up a localized string similar to سوال امنیتی {0} و یا جواب آن در جدول سوالات امنیتی وجود ندارد، خواهشا آن را اضافه و سپس اقدام نمایید..
+	/// </summary>
+	public static string ThatQuestionOrAnswerEmpty => ResourceManager.GetString("ThatQuestionOrAnswerEmpty", Culture);
 }
