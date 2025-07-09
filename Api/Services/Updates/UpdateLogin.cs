@@ -1,14 +1,15 @@
 using PuppeteerSharp;
 using Api.Services.Browser;
-using PuppeteerSharp.Input;
 
 public class UpdateLogin : IUpdateLogin
 {
   private readonly BrowserService _browserService;
+  private readonly IPuppeteerSharpUtilities _puppeteerSharpUtilities;
 
-  public UpdateLogin(BrowserService browserService)
+  public UpdateLogin(BrowserService browserService, IPuppeteerSharpUtilities puppeteerSharpUtilities)
   {
     _browserService = browserService;
+    _puppeteerSharpUtilities = puppeteerSharpUtilities;
   }
 
   public async Task<ResultClass<Update>> LoginForUpdate(LoginForUpdateDTO request)
@@ -53,39 +54,8 @@ public class UpdateLogin : IUpdateLogin
         WaitUntil = new[] { WaitUntilNavigation.Load }
       });
 
-      var usernameInput = await page.QuerySelectorAsync("#token1");
+      await _puppeteerSharpUtilities.TypeAndContinue(page, "button", "token1", request.Username, "token2", request.Password);
 
-      var passInput = await page.QuerySelectorAsync("#token2");
-
-      var submitButton = await page.QuerySelectorAsync("#button");
-
-      if (!(usernameInput != null && passInput != null && submitButton != null))
-      {
-        var serverDown = await page.EvaluateFunctionAsync<string>(@"() => {
-          const el = [...document.querySelectorAll('strong')]
-            .find(el => el.innerText.includes('Our server is down'));
-          return el ? el.innerText : '';
-        }");
-
-        if (String.IsNullOrEmpty(serverDown))
-        {
-          throw new Exception(nameof(Messages.OpeningPageUnsuccessful));
-
-        }
-
-        throw new Exception(nameof(Messages.ServerDown));
-      }
-
-      await page.Mouse.MoveAsync(300, 500);
-      await page.Mouse.DownAsync();
-      await page.Mouse.UpAsync();
-
-      await usernameInput.TypeAsync(request.Username, new TypeOptions { Delay = 150 });
-      await passInput.TypeAsync(request.Password, new TypeOptions { Delay = 150 });
-
-
-      await submitButton.ClickAsync();
-      await page.WaitForNavigationAsync();
 
       var errorSpans = await page.EvaluateFunctionAsync<string[]>(@"() => {
         return [...document.querySelectorAll('span.inputError')].map(el => el.innerText);
@@ -102,15 +72,14 @@ public class UpdateLogin : IUpdateLogin
         return el ? el.innerText : '';
       }");
 
-      var continueButton = await page.QuerySelectorAsync("#continue");
-
-      if (!(yourLastSignedInPhrase != null && continueButton != null))
+      if (yourLastSignedInPhrase == null)
       {
         throw new Exception(nameof(Messages.OpeningPageUnsuccessful));
       }
 
-      await continueButton.ClickAsync();
-      await page.WaitForNavigationAsync();
+
+      await _puppeteerSharpUtilities.TypeAndContinue(page, "continue");
+
 
       var codeInput = await page.QuerySelectorAsync("#code");
       var codeContinueButton = await page.QuerySelectorAsync("#continue-btn");

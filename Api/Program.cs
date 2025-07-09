@@ -29,6 +29,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUpdateService, UpdateService>();
 builder.Services.AddScoped<IUpdateLogin, UpdateLogin>();
 builder.Services.AddScoped<IUpdateVerification, UpdateVerification>();
+builder.Services.AddScoped<IPuppeteerSharpUtilities, PuppeteerSharpUtilities>();
 builder.Services.AddScoped<ISecurityQuestionService, SecurityQuestionService>();
 builder.Services.AddSingleton<BrowserService>();
 builder.Services.AddSingleton<ResourcesService>();

@@ -1,5 +1,4 @@
-using System;
-using Api.Models.ResultClass;
+using PuppeteerSharp;
 
 namespace Api.Services.Updates;
 
@@ -17,4 +16,9 @@ public interface IUpdateLogin
 public interface IUpdateVerification
 {
   public Task<ResultClass<Update>> VerificationForUpdate(VerificationForUpdateDTO request);
+}
+
+public interface IPuppeteerSharpUtilities
+{
+  public Task TypeAndContinue(IPage page, string button, string? input = null, string? value = null, string? input2 = null, string? value2 = null);
 }
